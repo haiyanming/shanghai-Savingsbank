@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shanghai Commercial & Savings Bank | 上海商業儲蓄銀行</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond & Noto Serif SC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        scsb: {
+                            dark: '#0B0A09',
+                            charcoal: '#141210',
+                            panel: '#1A1714',
+                            border: '#3A3228',
+                            gold: '#D4AF37',
+                            'gold-light': '#F3E5AB',
+                            'gold-dark': '#9A7B22',
+                            red: '#7A1C1C',
+                            'red-bright': '#991B1B',
+                            'red-dark': '#4A0E0E',
+                            cream: '#EFECE6',
+                            'cream-dark': '#D8D3C8',
+                            silver: '#A3A3A3',
+                            diamond: '#7DD3FC',
+                            copper: '#B85D34'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', '"Noto Serif SC"', 'serif'],
+                        sans: ['"Cormorant Garamond"', '"Noto Serif SC"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B0A09;
+            color: #EFECE6;
+            font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+            overflow-x: hidden;
+        }
+        
+        .paper-grain {
+            background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        .vintage-border {
+            border: 2px solid #D4AF37;
+            position: relative;
+        }
+        .vintage-border::before {
+            content: '';
+            position: absolute;
+            top: 3px; left: 3px; right: 3px; bottom: 3px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            pointer-events: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141210;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #9A7B22;
+            border-radius: 3px;
+        }
+
+        @keyframes stampPulse {
+            0% { transform: scale(2) rotate(-15deg); opacity: 0; }
+            50% { transform: scale(0.9) rotate(-10deg); opacity: 1; }
+            100% { transform: scale(1) rotate(-12deg); opacity: 0.95; }
+        }
+        .chinese-stamp {
+            animation: stampPulse 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes dropIn {
+            0% { transform: translateY(-50px); opacity: 0; }
+            60% { transform: translateY(10px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .drop-anim {
+            animation: dropIn 0.8s ease forwards;
+        }
+
+        .tier-silver { background: linear-gradient(135deg, #A3A3A3 0%, #737373 100%); color: #000; }
+        .tier-gold { background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #9A7B22 100%); color: #1a1205; }
+        .tier-diamond { background: linear-gradient(135deg, #E0F2FE 0%, #7DD3FC 50%, #0284C7 100%); color: #082F49; }
+        .tier-copper { background: linear-gradient(135deg, #E07A5F 0%, #B85D34 50%, #7A2E12 100%); color: #FDF8F6; }
+        .tier-unranked { background: #262626; color: #A3A3A3; border: 1px dashed #525252; }
+    </style>
+</head>
+<body class="h-full paper-grain flex flex-col selection:bg-scsb-gold selection:text-black">
+
+    <!-- Audio synthesizer context for mechanical sound effects -->
+    <audio id="clickSound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA="></audio>
+
+    <!-- Top Navbar with Vintage Theme -->
+    <header id="navbar" class="bg-scsb-charcoal border-b border-scsb-border px-6 py-3 flex justify-between items-center z-40 sticky top-0 shadow-xl hidden">
+        <div class="flex items-center space-x-4 cursor-pointer" onclick="navigateTo('home')">
+            <div class="w-10 h-10 rounded-full border border-scsb-gold flex items-center justify-center bg-scsb-dark shadow-inner">
+                <i class="fa-solid fa-landmark text-scsb-gold text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-serif text-lg font-bold text-scsb-gold tracking-wider">上海商業儲蓄銀行</h1>
+                <p class="text-[10px] text-scsb-cream-dark uppercase tracking-widest">ธนาคารเซี่ยงไฮ้เพื่อการพาณิชย์และออมสิน</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center space-x-6">
+            <button onclick="toggleAudio()" id="audioMuteBtn" class="text-scsb-gold hover:text-scsb-gold-light transition text-sm flex items-center space-x-1 border border-scsb-border px-3 py-1 rounded bg-scsb-dark">
+                <i class="fa-solid fa-volume-high" id="audioIcon"></i> <span class="hidden md:inline">เสียง: เปิด</span>
+            </button>
+            <div class="relative">
+                <button onclick="toggleNotifications()" class="relative text-scsb-gold hover:text-scsb-gold-light transition p-2">
+                    <i class="fa-solid fa-bell text-xl"></i>
+                    <span id="notifBadge" class="absolute -top-1 -right-1 bg-scsb-red-bright text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                </button>
+                <!-- Notification Dropdown -->
+                <div id="notifDropdown" class="absolute right-0 mt-2 w-80 bg-scsb-panel border border-scsb-gold shadow-2xl rounded-none hidden z-50 p-4 max-h-96 overflow-y-auto">
+                    <div class="flex justify-between items-center border-b border-scsb-border pb-2 mb-3">
+                        <span class="font-serif text-scsb-gold font-bold tracking-widest text-sm">โทรเลขแจ้งเตือน</span>
+                        <button onclick="clearNotifications()" class="text-[10px] text-scsb-silver hover:text-scsb-cream">ล้างทั้งหมด</button>
+                    </div>
+                    <div id="notifList" class="space-y-3">
+                        <!-- Notifications populated dynamically -->
+                    </div>
+                </div>
+            </div>
+            <button onclick="navigateTo('home')" class="text-scsb-cream hover:text-scsb-gold text-sm tracking-widest uppercase border-b border-transparent hover:border-scsb-gold transition">
+                <i class="fa-solid fa-house mr-1"></i> หน้าหลัก
+            </button>
+        </div>
+    </header>
+
+    <!-- INTRO SCREEN -->
+    <div id="screen-intro" class="fixed inset-0 bg-scsb-dark z-50 flex flex-col items-center justify-center p-4 cursor-pointer" onclick="triggerIntroExit()">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+        <div class="text-center z-10 max-w-xl">
+            <div class="w-24 h-24 mx-auto mb-8 rounded-full border-2 border-scsb-gold flex items-center justify-center bg-scsb-charcoal shadow-2xl relative">
+                <div class="absolute inset-0 rounded-full border border-scsb-gold animate-ping opacity-20"></div>
+                <i class="fa-solid fa-landmark text-scsb-gold text-4xl"></i>
+            </div>
+            <div id="intro-letters" class="flex justify-center space-x-3 text-5xl md:text-7xl font-serif font-bold text-scsb-gold mb-4 tracking-widest">
+                <span class="drop-anim" style="animation-delay: 0.1s">S</span>
+                <span class="drop-anim" style="animation-delay: 0.3s">C</span>
+                <span class="drop-anim" style="animation-delay: 0.5s">S</span>
+                <span class="drop-anim" style="animation-delay: 0.7s">B</span>
+            </div>
+            <h2 class="font-serif text-xl md:text-2xl text-scsb-cream tracking-[0.3em] uppercase opacity-90 drop-anim" style="animation-delay: 1s">
+                上海商業儲蓄銀行
+            </h2>
+            <p class="font-serif text-sm text-scsb-gold tracking-[0.2em] mt-2 opacity-80 drop-anim" style="animation-delay: 1.2s">
+                ธนาคารเซี่ยงไฮ้เพื่อการพาณิชย์และออมสิน
+            </p>
+            <div class="mt-10 opacity-70 animate-pulse text-xs tracking-[0.3em] text-scsb-silver border border-scsb-border px-6 py-2 inline-block rounded">
+                [ คลิกที่ใดก็ได้เพื่อเข้าสู่ห้องนิรภัย ]
+            </div>
+        </div>
+        <div class="absolute bottom-6 text-[11px] text-scsb-silver tracking-widest">
+            ก่อตั้ง ค.ศ. 1915 • ยุคสาธารณรัฐจีน • บูรณะระบบ
+        </div>
+    </div>
+
+    <!-- Page Transition Overlay -->
+    <div id="pageTransition" class="fixed inset-0 bg-scsb-dark z-40 pointer-events-none opacity-0 transition-opacity duration-500 flex flex-col items-center justify-center">
+        <div class="w-16 h-16 rounded-full border-2 border-scsb-gold border-t-transparent animate-spin mb-4"></div>
+        <div class="font-serif text-scsb-gold tracking-widest text-lg">กำลังโหลดระบบธนาคาร...</div>
+    </div>
+
+    <!-- MAIN MENU SCREEN -->
+    <div id="screen-home" class="flex-1 flex flex-col items-center justify-center p-6 relative hidden">
+        <div class="max-w-4xl w-full text-center space-y-8 my-auto">
+            <div class="space-y-3">
+                <div class="w-20 h-20 mx-auto rounded-full border border-scsb-gold flex items-center justify-center bg-scsb-charcoal shadow-xl">
+                    <i class="fa-solid fa-landmark text-scsb-gold text-3xl"></i>
+                </div>
+                <h1 class="font-serif text-3xl md:text-5xl font-bold text-scsb-gold tracking-widest">上海商業儲蓄銀行</h1>
+                <p class="font-serif text-lg text-scsb-cream tracking-[0.25em]">ธนาคารเซี่ยงไฮ้เพื่อการพาณิชย์และออมสิน</p>
+                <div class="inline-block border-t border-b border-scsb-gold px-6 py-1 text-xs text-scsb-silver tracking-[0.3em] uppercase">
+                    ก่อตั้งขึ้นในยุคการฟื้นฟูการพาณิชย์
+                </div>
+            </div>
+
+            <!-- Menu Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 text-left">
+                <!-- 01 Authority -->
+                <div onclick="navigateTo('auth-login')" class="vintage-border bg-scsb-panel p-6 cursor-pointer hover:border-scsb-gold-light transition group relative overflow-hidden shadow-2xl">
+                    <div class="absolute right-0 bottom-0 opacity-5 text-8xl font-serif text-scsb-gold translate-x-4 translate-y-4 group-hover:scale-110 transition duration-500">01</div>
+                    <span class="text-xs text-scsb-gold tracking-[0.2em] font-mono">01 — เฉพาะผู้มีอำนาจ</span>
+                    <h3 class="font-serif text-2xl font-bold text-scsb-cream mt-1 group-hover:text-scsb-gold transition">ห้องอำนาจบริหาร</h3>
+                    <p class="text-sm text-scsb-silver mt-2">ห้องโถงบริหารสำหรับนายธนาคารอาวุโสและกลุ่มซินดิเคท จำเป็นต้องใช้รหัสผ่านความปลอดภัย</p>
+                    <div class="mt-4 flex items-center text-xs text-scsb-gold tracking-widest">
+                        <span>เข้าสู่ห้องบริหาร</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+                <!-- 02 Member Directory -->
+                <div onclick="navigateTo('member-directory')" class="vintage-border bg-scsb-panel p-6 cursor-pointer hover:border-scsb-gold-light transition group relative overflow-hidden shadow-2xl">
+                    <div class="absolute right-0 bottom-0 opacity-5 text-8xl font-serif text-scsb-gold translate-x-4 translate-y-4 group-hover:scale-110 transition duration-500">02</div>
+                    <span class="text-xs text-scsb-gold tracking-[0.2em] font-mono">02 — สมุดบัญชีสาธารณะ</span>
+                    <h3 class="font-serif text-2xl font-bold text-scsb-cream mt-1 group-hover:text-scsb-gold transition">ทำเนียบสมาชิก</h3>
+                    <p class="text-sm text-scsb-silver mt-2">ทะเบียนสาธารณะแสดงบัญชีสถาบัน สถานะบัตร และสภาพคล่องโดยรวม</p>
+                    <div class="mt-4 flex items-center text-xs text-scsb-gold tracking-widest">
+                        <span>ดูทะเบียนบัญชี</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+                <!-- 03 Account Book -->
+                <div onclick="navigateTo('account-login')" class="vintage-border bg-scsb-panel p-6 cursor-pointer hover:border-scsb-gold-light transition group relative overflow-hidden shadow-2xl">
+                    <div class="absolute right-0 bottom-0 opacity-5 text-8xl font-serif text-scsb-gold translate-x-4 translate-y-4 group-hover:scale-110 transition duration-500">03</div>
+                    <span class="text-xs text-scsb-gold tracking-[0.2em] font-mono">03 — พอร์ทัลลูกค้า</span>
+                    <h3 class="font-serif text-2xl font-bold text-scsb-cream mt-1 group-hover:text-scsb-gold transition">สมุดบัญชีส่วนบุคคล</h3>
+                    <p class="text-sm text-scsb-silver mt-2">เข้าถึงสมุดบัญชีส่วนตัว โอนเงินอย่างปลอดภัย และตรวจสอบประวัติธุรกรรมย้อนหลัง</p>
+                    <div class="mt-4 flex items-center text-xs text-scsb-gold tracking-widest">
+                        <span>เปิดสมุดบัญชี</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+                <!-- 04 Deposit Book -->
+                <div onclick="navigateTo('deposit-login')" class="vintage-border bg-scsb-panel p-6 cursor-pointer hover:border-scsb-gold-light transition group relative overflow-hidden shadow-2xl">
+                    <div class="absolute right-0 bottom-0 opacity-5 text-8xl font-serif text-scsb-gold translate-x-4 translate-y-4 group-hover:scale-110 transition duration-500">04</div>
+                    <span class="text-xs text-scsb-gold tracking-[0.2em] font-mono">04 — ห้องนิรภัยล็อกฝาก</span>
+                    <h3 class="font-serif text-2xl font-bold text-scsb-cream mt-1 group-hover:text-scsb-gold transition">สมุดฝากทรัพย์สิน</h3>
+                    <p class="text-sm text-scsb-silver mt-2">เงินฝากล็อกผลตอบแทนสูงพร้อมอัตราดอกเบี้ยรับประกันสูงถึง 22% เมื่อครบกำหนด</p>
+                    <div class="mt-4 flex items-center text-xs text-scsb-gold tracking-widest">
+                        <span>เข้าสู่ห้องนิรภัย</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-xs text-scsb-silver tracking-widest pb-4">
+            SCSB — ธนาคารเซี่ยงไฮ้เพื่อการพาณิชย์และออมสิน | ระบบธนาคารจำลองสำหรับการสวมบทบาทในชุมชน<br>
+            ไม่มีการใช้เงินจริง • ไม่มีบริการทางการเงินจริง
+        </footer>
+    </div>
+
+    <!-- AUTHORITY LOGIN SCREEN -->
+    <div id="screen-auth-login" class="flex-1 flex flex-col items-center justify-center p-6 relative hidden">
+        <div class="max-w-md w-full bg-scsb-panel vintage-border p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-scsb-red text-white text-[10px] px-3 py-1 font-mono tracking-widest">จำกัดสิทธิ์</div>
+            <div class="text-center mb-6">
+                <i class="fa-solid fa-shield-halved text-scsb-gold text-4xl mb-2"></i>
+                <h2 class="font-serif text-2xl font-bold text-scsb-gold tracking-wider">ห้องอำนาจบริหาร</h2>
+                <p class="text-xs text-scsb-silver tracking-widest mt-1">พื้นที่จำกัดเฉพาะเจ้าหน้าที่ระดับสูง</p>
+            </div>
+            <p class="text-xs text-scsb-cream-dark text-center mb-6 italic">
+                "ห้องนี้สงวนไว้สำหรับผู้ถืออำนาจสูงสุดของธนาคารเท่านั้น"
+            </p>
+            <form onsubmit="handleAuthLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold tracking-widest mb-1">รหัสลับผู้มีอำนาจ</label>
+                    <input type="password" id="authSecretInput" placeholder="ป้อนรหัสผ่านความปลอดภัย..." required
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-4 py-3 rounded-none focus:border-scsb-gold focus:outline-none font-mono text-sm">
+                </div>
+                <button type="submit" class="w-full bg-scsb-red hover:bg-scsb-red-bright text-white font-serif tracking-[0.2em] py-3 transition border border-scsb-gold/40 shadow-lg text-sm uppercase">
+                    เข้าสู่ห้องบริหาร
+                </button>
+            </form>
+            <div class="mt-6 text-center">
+                <button onclick="navigateTo('home')" class="text-xs text-scsb-silver hover:text-scsb-gold tracking-widest">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> กลับสู่หน้าหลัก
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUTHORITY DASHBOARD -->
+    <div id="screen-auth-dashboard" class="flex-1 flex flex-col p-4 md:p-8 max-w-7xl mx-auto w-full hidden space-y-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-scsb-border pb-4 gap-4">
+            <div>
+                <span class="text-xs text-scsb-gold tracking-widest font-mono">ห้องโถงบริหารจัดการ</span>
+                <h2 class="font-serif text-3xl font-bold text-scsb-gold tracking-wider">บัญชีแยกประเภทผู้มีอำนาจ</h2>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="openCreateAccountModal()" class="bg-scsb-gold text-black font-bold px-4 py-2 text-xs tracking-widest hover:bg-scsb-gold-light transition flex items-center space-x-2">
+                    <i class="fa-solid fa-plus"></i> <span>ออกบัญชีใหม่</span>
+                </button>
+                <button onclick="navigateTo('home')" class="border border-scsb-border px-4 py-2 text-xs text-scsb-cream hover:text-scsb-gold tracking-widest">
+                    ออกจากระบบ
+                </button>
+            </div>
+        </div>
+
+        <!-- Ledger Statistics Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+            <div class="vintage-border bg-scsb-panel p-4 text-center">
+                <span class="text-[10px] text-scsb-silver tracking-widest">บัญชีทั้งหมด</span>
+                <h3 id="statTotalAcc" class="font-serif text-2xl font-bold text-scsb-gold mt-1">0</h3>
+            </div>
+            <div class="vintage-border bg-scsb-panel p-4 text-center">
+                <span class="text-[10px] text-scsb-silver tracking-widest">สภาพคล่องหมุนเวียน</span>
+                <h3 id="statTotalLiq" class="font-serif text-2xl font-bold text-scsb-gold mt-1">¥0</h3>
+            </div>
+            <div class="vintage-border bg-scsb-panel p-4 text-center">
+                <span class="text-[10px] text-scsb-silver tracking-widest">บัญชีเงินฝาก</span>
+                <h3 id="statTotalDep" class="font-serif text-2xl font-bold text-scsb-gold mt-1">0</h3>
+            </div>
+            <div class="vintage-border bg-scsb-panel p-4 text-center">
+                <span class="text-[10px] text-scsb-silver tracking-widest">ยอดเงินฝากรวม</span>
+                <h3 id="statTotalDepVal" class="font-serif text-2xl font-bold text-scsb-gold mt-1">¥0</h3>
+            </div>
+            <div class="vintage-border bg-scsb-panel p-4 text-center">
+                <span class="text-[10px] text-scsb-silver tracking-widest">บัตรระดับพิเศษ</span>
+                <h3 id="statTotalCards" class="font-serif text-2xl font-bold text-scsb-gold mt-1">0</h3>
+            </div>
+            <div class="vintage-border bg-scsb-panel p-4 text-center">
+                <span class="text-[10px] text-scsb-silver tracking-widest">ธุรกรรมล่าสุด</span>
+                <h3 id="statTotalTx" class="font-serif text-2xl font-bold text-scsb-gold mt-1">0</h3>
+            </div>
+        </div>
+
+        <!-- Search & Filters -->
+        <div class="bg-scsb-panel vintage-border p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div class="w-full md:w-1/3 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-scsb-silver text-xs"></i>
+                <input type="text" id="authSearchInput" oninput="renderAuthLedger()" placeholder="ค้นหาเลขบัญชี หรือชื่อเจ้าของ..." 
+                    class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream pl-9 pr-4 py-2 text-xs focus:border-scsb-gold focus:outline-none">
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+                <button onclick="setFilter('ALL')" id="filter-ALL" class="px-3 py-1 bg-scsb-gold text-black font-bold transition">ทั้งหมด</button>
+                <button onclick="setFilter('SILVER')" id="filter-SILVER" class="px-3 py-1 bg-scsb-dark border border-scsb-border text-scsb-silver hover:text-scsb-cream transition">เงิน (SILVER)</button>
+                <button onclick="setFilter('GOLD')" id="filter-GOLD" class="px-3 py-1 bg-scsb-dark border border-scsb-border text-scsb-silver hover:text-scsb-cream transition">ทอง (GOLD)</button>
+                <button onclick="setFilter('DIAMOND')" id="filter-DIAMOND" class="px-3 py-1 bg-scsb-dark border border-scsb-border text-scsb-silver hover:text-scsb-cream transition">เพชร (DIAMOND)</button>
+                <button onclick="setFilter('UNRANKED')" id="filter-UNRANKED" class="px-3 py-1 bg-scsb-dark border border-scsb-border text-scsb-silver hover:text-scsb-cream transition">ทั่วไป</button>
+                <button onclick="setFilter('DEPOSIT')" id="filter-DEPOSIT" class="px-3 py-1 bg-scsb-dark border border-scsb-border text-scsb-silver hover:text-scsb-cream transition">เงินฝาก</button>
+            </div>
+        </div>
+
+        <!-- Accounts Ledger Table / Cards -->
+        <div class="bg-scsb-panel vintage-border overflow-hidden shadow-2xl">
+            <div class="p-4 border-b border-scsb-border flex justify-between items-center bg-scsb-charcoal">
+                <h3 class="font-serif text-lg font-bold text-scsb-gold tracking-widest"><i class="fa-solid fa-book-open mr-2"></i> ทะเบียนสมุดบัญชีธนาคาร</h3>
+                <span class="text-xs text-scsb-silver font-mono" id="authAccountCount">แสดง 0 บัญชี</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="border-b border-scsb-border text-scsb-gold font-mono tracking-wider bg-scsb-dark/50">
+                            <th class="p-3">เลขที่บัญชี</th>
+                            <th class="p-3">ชื่อเจ้าของบัญชี</th>
+                            <th class="p-3">ยอดเงินคงเหลือ</th>
+                            <th class="p-3">สถานะระดับ</th>
+                            <th class="p-3">รหัสลับ</th>
+                            <th class="p-3">วันที่สร้าง</th>
+                            <th class="p-3 text-right">จัดการระบบ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="authAccountsTableBody" class="divide-y divide-scsb-border/50">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Audit Log Section -->
+        <div class="bg-scsb-panel vintage-border p-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-scsb-border pb-3 mb-3">
+                <h3 class="font-serif text-lg font-bold text-scsb-gold tracking-widest"><i class="fa-solid fa-clock-rotate-left mr-2"></i> บันทึกการตรวจสอบของผู้มีอำนาจ</h3>
+                <span class="text-[10px] text-scsb-silver font-mono">ระบบตรวจสอบความสมบูรณ์ทำงานอยู่</span>
+            </div>
+            <div class="max-h-60 overflow-y-auto space-y-2 font-mono text-xs" id="auditLogContainer">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MEMBER DIRECTORY SCREEN (Public) -->
+    <div id="screen-member-directory" class="flex-1 flex flex-col p-4 md:p-8 max-w-7xl mx-auto w-full hidden space-y-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-scsb-border pb-4 gap-4">
+            <div>
+                <span class="text-xs text-scsb-gold tracking-widest font-mono">ทะเบียนสาธารณะ</span>
+                <h2 class="font-serif text-3xl font-bold text-scsb-gold tracking-wider">ทำเนียบสมาชิก</h2>
+            </div>
+            <button onclick="navigateTo('home')" class="border border-scsb-border px-4 py-2 text-xs text-scsb-cream hover:text-scsb-gold tracking-widest">
+                <i class="fa-solid fa-arrow-left mr-1"></i> กลับสู่หน้าหลัก
+            </button>
+        </div>
+
+        <div class="bg-scsb-panel vintage-border p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div class="w-full md:w-1/2 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-scsb-silver text-xs"></i>
+                <input type="text" id="publicSearchInput" oninput="renderPublicDirectory()" placeholder="ค้นหาด้วยเลขที่บัญชี (เช่น SCSB-004821)..." 
+                    class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream pl-9 pr-4 py-2 text-xs focus:border-scsb-gold focus:outline-none">
+            </div>
+            <div class="text-xs text-scsb-silver tracking-widest">
+                * หมายเหตุ: ชื่อบุคคลและรหัสลับจะถูกเก็บเป็นความลับอย่างเข้มงวดภายใต้กฎหมายความเป็นส่วนตัวของธนาคารเซี่ยงไฮ้
+            </div>
+        </div>
+
+        <!-- Public Cards Grid -->
+        <div id="publicDirectoryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <!-- ACCOUNT BOOK LOGIN -->
+    <div id="screen-account-login" class="flex-1 flex flex-col items-center justify-center p-6 relative hidden">
+        <div class="max-w-md w-full bg-scsb-panel vintage-border p-8 shadow-2xl relative">
+            <div class="text-center mb-6">
+                <i class="fa-solid fa-book text-scsb-gold text-4xl mb-2"></i>
+                <h2 class="font-serif text-2xl font-bold text-scsb-gold tracking-wider">พอร์ทัลสมุดบัญชีลูกค้า</h2>
+                <p class="text-xs text-scsb-silver tracking-widest mt-1">ยืนยันตัวตนสมุดบัญชี</p>
+            </div>
+            <form onsubmit="handleAccountLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold tracking-widest mb-1">หมายเลขบัญชี</label>
+                    <input type="text" id="loginAccNumber" placeholder="SCSB-XXXXXX" required
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-4 py-3 rounded-none focus:border-scsb-gold focus:outline-none font-mono text-sm uppercase">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold tracking-widest mb-1">รหัสลับบัญชี</label>
+                    <input type="password" id="loginAccSecret" placeholder="ป้อนรหัสผ่านบัญชี..." required
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-4 py-3 rounded-none focus:border-scsb-gold focus:outline-none font-mono text-sm">
+                </div>
+                <button type="submit" class="w-full bg-scsb-gold hover:bg-scsb-gold-light text-black font-serif font-bold tracking-[0.2em] py-3 transition shadow-lg text-sm uppercase">
+                    เปิดสมุดบัญชี
+                </button>
+            </form>
+            <div class="mt-6 text-center">
+                <button onclick="navigateTo('home')" class="text-xs text-scsb-silver hover:text-scsb-gold tracking-widest">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> กลับสู่หน้าหลัก
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACCOUNT BOOK SCREEN -->
+    <div id="screen-account-book" class="flex-1 flex flex-col p-4 md:p-8 max-w-5xl mx-auto w-full hidden space-y-6">
+        <div class="flex justify-between items-center border-b border-scsb-border pb-4">
+            <div>
+                <span class="text-xs text-scsb-gold tracking-widest font-mono">สมุดบัญชีลูกค้า</span>
+                <h2 id="abTitleName" class="font-serif text-3xl font-bold text-scsb-gold tracking-wider">สมุดบัญชี</h2>
+            </div>
+            <button onclick="navigateTo('home')" class="border border-scsb-border px-4 py-2 text-xs text-scsb-cream hover:text-scsb-gold tracking-widest">
+                ปิดสมุดบัญชี
+            </button>
+        </div>
+
+        <!-- Account Overview Card & Transfer Action -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div id="abTierCard" class="vintage-border bg-scsb-panel p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute right-[-20px] bottom-[-20px] opacity-10 text-9xl font-serif">¥</div>
+                <div>
+                    <span id="abCardTierBadge" class="text-[10px] px-2 py-0.5 font-mono font-bold tracking-widest bg-scsb-dark border border-scsb-gold text-scsb-gold uppercase">ทั่วไป</span>
+                    <h3 id="abAccountNumber" class="font-serif text-xl font-bold text-scsb-cream mt-3 tracking-widest">SCSB-000000</h3>
+                </div>
+                <div class="mt-8">
+                    <span class="text-xs text-scsb-silver tracking-widest">ยอดเงินคงเหลือปัจจุบัน</span>
+                    <h1 id="abBalanceDisplay" class="font-serif text-4xl font-bold text-scsb-gold mt-1">¥ 0</h1>
+                </div>
+            </div>
+
+            <div class="vintage-border bg-scsb-panel p-6 shadow-2xl md:col-span-2 flex flex-col justify-between">
+                <div>
+                    <h3 class="font-serif text-lg font-bold text-scsb-gold tracking-widest mb-2"><i class="fa-solid fa-money-bill-transfer mr-2"></i> โอนเงินอย่างปลอดภัย</h3>
+                    <p class="text-xs text-scsb-silver mb-4">โอนเงินไปยังบัญชีสมาชิก SCSB อื่นๆ ในทำเนียบชุมชนได้ทันที</p>
+                </div>
+                <button onclick="openTransferModal()" class="w-full bg-scsb-gold hover:bg-scsb-gold-light text-black font-bold py-3 text-xs tracking-[0.2em] transition uppercase shadow-md flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-paper-plane"></i> <span>เริ่มการโอนเงิน</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Transaction History Table -->
+        <div class="bg-scsb-panel vintage-border p-6 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-scsb-border pb-3 mb-4">
+                <h3 class="font-serif text-lg font-bold text-scsb-gold tracking-widest"><i class="fa-solid fa-receipt mr-2"></i> ประวัติธุรกรรม</h3>
+                <span class="text-xs text-scsb-silver font-mono" id="abTxCount">0 รายการ</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="border-b border-scsb-border text-scsb-gold font-mono tracking-wider bg-scsb-dark/50">
+                            <th class="p-3">วันที่ / เวลา</th>
+                            <th class="p-3">ประเภท</th>
+                            <th class="p-3">จำนวนเงิน</th>
+                            <th class="p-3">รายละเอียด / หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="abTransactionsTableBody" class="divide-y divide-scsb-border/50">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- DEPOSIT BOOK LOGIN -->
+    <div id="screen-deposit-login" class="flex-1 flex flex-col items-center justify-center p-6 relative hidden">
+        <div class="max-w-md w-full bg-scsb-panel vintage-border p-8 shadow-2xl relative">
+            <div class="text-center mb-6">
+                <i class="fa-solid fa-vault text-scsb-gold text-4xl mb-2"></i>
+                <h2 class="font-serif text-2xl font-bold text-scsb-gold tracking-wider">ห้องนิรภัยเงินฝากล็อก</h2>
+                <p class="text-xs text-scsb-silver tracking-widest mt-1">ยืนยันตัวตนสมุดฝากทรัพย์สิน</p>
+            </div>
+            <form onsubmit="handleDepositLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold tracking-widest mb-1">หมายเลขบัญชี</label>
+                    <input type="text" id="depositLoginAccNumber" placeholder="SCSB-XXXXXX" required
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-4 py-3 rounded-none focus:border-scsb-gold focus:outline-none font-mono text-sm uppercase">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold tracking-widest mb-1">รหัสลับบัญชี</label>
+                    <input type="password" id="depositLoginAccSecret" placeholder="ป้อนรหัสผ่านบัญชี..." required
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-4 py-3 rounded-none focus:border-scsb-gold focus:outline-none font-mono text-sm">
+                </div>
+                <button type="submit" class="w-full bg-scsb-gold hover:bg-scsb-gold-light text-black font-serif font-bold tracking-[0.2em] py-3 transition shadow-lg text-sm uppercase">
+                    เปิดห้องนิรภัยเงินฝาก
+                </button>
+            </form>
+            <div class="mt-6 text-center">
+                <button onclick="navigateTo('home')" class="text-xs text-scsb-silver hover:text-scsb-gold tracking-widest">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> กลับสู่หน้าหลัก
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DEPOSIT BOOK SCREEN -->
+    <div id="screen-deposit-book" class="flex-1 flex flex-col p-4 md:p-8 max-w-5xl mx-auto w-full hidden space-y-6">
+        <div class="flex justify-between items-center border-b border-scsb-border pb-4">
+            <div>
+                <span class="text-xs text-scsb-gold tracking-widest font-mono">ห้องนิรภัยเงินฝากล็อก</span>
+                <h2 class="font-serif text-3xl font-bold text-scsb-gold tracking-wider">สมุดฝากทรัพย์สินและสัญญา</h2>
+            </div>
+            <button onclick="navigateTo('home')" class="border border-scsb-border px-4 py-2 text-xs text-scsb-cream hover:text-scsb-gold tracking-widest">
+                ปิดห้องนิรภัย
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="vintage-border bg-scsb-panel p-6 shadow-2xl flex flex-col justify-between">
+                <div>
+                    <span id="depCardTierBadge" class="text-[10px] px-2 py-0.5 font-mono font-bold tracking-widest bg-scsb-dark border border-scsb-gold text-scsb-gold uppercase">บัตรทองแดง</span>
+                    <h3 id="depAccountNumber" class="font-serif text-xl font-bold text-scsb-cream mt-3 tracking-widest">SCSB-000000</h3>
+                </div>
+                <div class="my-6">
+                    <span class="text-xs text-scsb-silver tracking-widest">เงินต้นเงินฝาก</span>
+                    <h1 id="depBalanceDisplay" class="font-serif text-4xl font-bold text-scsb-gold mt-1">¥ 0</h1>
+                </div>
+                <div class="bg-scsb-dark p-3 border border-scsb-border">
+                    <span class="text-[10px] text-scsb-silver block">สถานะครบกำหนด</span>
+                    <span id="depStatusDisplay" class="font-mono text-sm font-bold text-scsb-gold uppercase">ล็อกอยู่ (ใช้งานอยู่)</span>
+                </div>
+            </div>
+
+            <div class="vintage-border bg-scsb-panel p-6 shadow-2xl md:col-span-2 flex flex-col justify-between space-y-4">
+                <div>
+                    <h3 class="font-serif text-lg font-bold text-scsb-gold tracking-widest mb-1"><i class="fa-solid fa-hourglass-half mr-2"></i> การนับถอยหลังและเงื่อนไขครบกำหนด</h3>
+                    <p class="text-xs text-scsb-silver">เงินฝากที่ถูกล็อกจะได้รับผลตอบแทนสูงเมื่อครบกำหนด เงินต้นจะถูกล็อกไว้ตลอดอายุสัญญา</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-scsb-dark p-4 border border-scsb-border text-center">
+                    <div>
+                        <span class="text-[10px] text-scsb-silver block">วันที่เริ่มต้น</span>
+                        <span id="depStartDate" class="font-mono text-xs text-scsb-cream font-bold">-</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-scsb-silver block">ระยะเวลา</span>
+                        <span id="depDuration" class="font-mono text-xs text-scsb-gold font-bold">-</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-scsb-silver block">อัตราดอกเบี้ย</span>
+                        <span id="depInterestRate" class="font-mono text-xs text-scsb-gold font-bold">-</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-scsb-silver block">วันที่ครบกำหนด</span>
+                        <span id="depMaturityDate" class="font-mono text-xs text-scsb-cream font-bold">-</span>
+                    </div>
+                </div>
+
+                <div class="bg-scsb-charcoal p-4 border border-scsb-border text-center">
+                    <span class="text-[10px] text-scsb-silver tracking-widest block uppercase">เวลาที่เหลือก่อนครบกำหนด</span>
+                    <div id="depCountdownDisplay" class="font-mono text-2xl font-bold text-scsb-gold mt-1">00 วัน 00 ชั่วโมง 00 นาที</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL OVERLAYS -->
+
+    <!-- Transfer Input Modal (New Popup for Details & Note) -->
+    <div id="transferInputModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+        <div class="max-w-md w-full bg-scsb-panel vintage-border p-6 shadow-2xl relative">
+            <h3 class="font-serif text-xl font-bold text-scsb-gold tracking-widest mb-4 border-b border-scsb-border pb-2"><i class="fa-solid fa-money-bill-transfer mr-2"></i> กรอกข้อมูลการโอนเงิน</h3>
+            <form onsubmit="submitTransferInput(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">หมายเลขบัญชีผู้รับ</label>
+                    <input type="text" id="inputTransferRecipient" placeholder="เช่น SCSB-007321" required
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-3 py-2 text-xs font-mono uppercase focus:border-scsb-gold focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">จำนวนเงินที่ต้องการโอน (¥)</label>
+                    <input type="number" id="inputTransferAmount" placeholder="1000" min="1" required
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-3 py-2 text-xs font-mono focus:border-scsb-gold focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">บันทึกช่วยจำ / โน๊ต</label>
+                    <textarea id="inputTransferNote" placeholder="ระบุบันทึกช่วยจำสำหรับการโอน (เช่น ค่าสินค้า, เงินปันผล)..." rows="3"
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-3 py-2 text-xs focus:border-scsb-gold focus:outline-none"></textarea>
+                </div>
+                <div class="flex space-x-4 pt-2">
+                    <button type="button" onclick="closeTransferInputModal()" class="w-1/2 border border-scsb-border text-scsb-silver hover:text-scsb-cream py-2 text-xs tracking-widest">ยกเลิก</button>
+                    <button type="submit" class="w-1/2 bg-scsb-gold hover:bg-scsb-gold-light text-black font-bold py-2 text-xs tracking-widest uppercase">ถัดไป</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Transfer Confirmation Modal -->
+    <div id="transferModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+        <div class="max-w-md w-full bg-scsb-panel vintage-border p-6 shadow-2xl relative">
+            <h3 class="font-serif text-xl font-bold text-scsb-gold tracking-widest mb-4 border-b border-scsb-border pb-2">ยืนยันการโอนเงิน</h3>
+            <div class="space-y-3 text-xs font-mono mb-6 bg-scsb-dark p-4 border border-scsb-border">
+                <div class="flex justify-between"><span class="text-scsb-silver">จากบัญชี:</span> <span id="modalFromAcc" class="text-scsb-cream font-bold">-</span></div>
+                <div class="flex justify-between"><span class="text-scsb-silver">ถึงผู้รับ:</span> <span id="modalToAcc" class="text-scsb-gold font-bold">-</span></div>
+                <div class="flex justify-between"><span class="text-scsb-silver">จำนวนเงินโอน:</span> <span id="modalAmount" class="text-scsb-gold font-bold">-</span></div>
+                <div class="flex justify-between"><span class="text-scsb-silver">บันทึกช่วยจำ:</span> <span id="modalNote" class="text-scsb-cream">-</span></div>
+            </div>
+            <div class="flex space-x-4">
+                <button onclick="closeTransferModal()" class="w-1/2 border border-scsb-border text-scsb-silver hover:text-scsb-cream py-2 text-xs tracking-widest">ยกเลิก</button>
+                <button onclick="executeTransfer()" class="w-1/2 bg-scsb-gold hover:bg-scsb-gold-light text-black font-bold py-2 text-xs tracking-widest uppercase">ยืนยันการโอน</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transfer Receipt Slip Modal -->
+    <div id="receiptModal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden">
+        <div class="max-w-md w-full bg-scsb-cream text-scsb-dark p-6 shadow-2xl relative border-4 border-scsb-gold font-serif">
+            <!-- Chinese Imperial Seal Stamp -->
+            <div class="absolute right-6 top-20 border-4 border-scsb-red text-scsb-red font-bold p-2 text-center transform -rotate-12 opacity-85 pointer-events-none chinese-stamp rounded">
+                <div class="text-[10px] tracking-tighter">上海商業儲蓄銀行</div>
+                <div class="text-xs tracking-widest font-mono">ตรวจสอบแล้ว</div>
+                <div class="text-[8px]">1930 S.C.S.B</div>
+            </div>
+
+            <div class="text-center border-b-2 border-scsb-dark pb-4 mb-4">
+                <i class="fa-solid fa-landmark text-scsb-red text-2xl mb-1"></i>
+                <h2 class="font-bold text-xl tracking-widest text-scsb-dark">上海商業儲蓄銀行</h2>
+                <p class="text-[10px] tracking-[0.2em] uppercase font-mono text-scsb-dark/70">SCSB — ใบเสร็จการโอนเงิน</p>
+            </div>
+
+            <div class="space-y-2 text-xs font-mono mb-6">
+                <div class="flex justify-between border-b border-scsb-dark/20 pb-1"><span>รหัสธุรกรรม:</span> <span id="slipTxId" class="font-bold">-</span></div>
+                <div class="flex justify-between border-b border-scsb-dark/20 pb-1"><span>วันที่โอน:</span> <span id="slipDate">-</span></div>
+                <div class="flex justify-between border-b border-scsb-dark/20 pb-1"><span>จากบัญชี:</span> <span id="slipFrom" class="font-bold">-</span></div>
+                <div class="flex justify-between border-b border-scsb-dark/20 pb-1"><span>ถึงบัญชี:</span> <span id="slipTo" class="font-bold">-</span></div>
+                <div class="flex justify-between border-b border-scsb-dark/20 pb-1"><span>จำนวนเงินที่โอน:</span> <span id="slipAmount" class="font-bold text-scsb-red-bright text-sm">-</span></div>
+                <div class="flex justify-between border-b border-scsb-dark/20 pb-1"><span>บันทึกช่วยจำ:</span> <span id="slipNote">-</span></div>
+            </div>
+
+            <div class="bg-scsb-dark text-scsb-cream text-center py-2 text-xs font-mono font-bold tracking-widest mb-6">
+                สถานะ: การโอนเงินสำเร็จ
+            </div>
+
+            <div class="flex space-x-4">
+                <button onclick="saveSlip()" class="w-1/2 bg-scsb-dark text-scsb-gold hover:bg-black py-2 text-xs font-mono tracking-widest border border-scsb-gold">บันทึกใบเสร็จ</button>
+                <button onclick="closeReceiptModal()" class="w-1/2 bg-scsb-red text-white hover:bg-scsb-red-bright py-2 text-xs font-mono tracking-widest">ปิด</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Account Modal (Authority) -->
+    <div id="createAccountModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+        <div class="max-w-md w-full bg-scsb-panel vintage-border p-6 shadow-2xl relative">
+            <h3 class="font-serif text-xl font-bold text-scsb-gold tracking-widest mb-4 border-b border-scsb-border pb-2">ออกบัญชีใหม่</h3>
+            <form onsubmit="handleCreateAccount(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">ชื่อผู้สมัคร / นามแฝง</label>
+                    <input type="text" id="newAccName" placeholder="ชื่อจริงหรือนามแฝงกลุ่ม..." required
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-3 py-2 text-xs focus:border-scsb-gold focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">ยอดเงินเริ่มต้น (¥)</label>
+                    <input type="number" id="newAccBalance" placeholder="5000" min="0" required
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-3 py-2 text-xs focus:border-scsb-gold focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">รหัสผ่านลับสำหรับลูกค้า</label>
+                    <input type="text" id="newAccSecret" placeholder="รหัสผ่านสำหรับลูกค้า..." required
+                        class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-3 py-2 text-xs focus:border-scsb-gold focus:outline-none">
+                </div>
+                <div class="flex items-center space-x-2 pt-2">
+                    <input type="checkbox" id="newAccIsDeposit" class="accent-scsb-gold">
+                    <label for="newAccIsDeposit" class="text-xs text-scsb-cream font-mono">สร้างเป็นห้องนิรภัยเงินฝากล็อก</label>
+                </div>
+                <div id="depositDurationBox" class="hidden space-y-2 pt-2 border-t border-scsb-border">
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">ระยะเวลาฝากและอัตราดอกเบี้ย</label>
+                    <select id="newAccDepositTerm" class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-3 py-2 text-xs focus:border-scsb-gold focus:outline-none">
+                        <option value="7">7 วัน (ดอกเบี้ย 2%)</option>
+                        <option value="30">1 เดือน (ดอกเบี้ย 10%)</option>
+                        <option value="60">2 เดือน (ดอกเบี้ย 22%)</option>
+                    </select>
+                </div>
+                <div class="flex space-x-4 pt-4">
+                    <button type="button" onclick="closeCreateAccountModal()" class="w-1/2 border border-scsb-border text-scsb-silver py-2 text-xs tracking-widest">ยกเลิก</button>
+                    <button type="submit" class="w-1/2 bg-scsb-gold text-black font-bold py-2 text-xs tracking-widest uppercase">ออกบัญชี</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Account Modal (Authority) -->
+    <div id="editAccountModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+        <div class="max-w-md w-full bg-scsb-panel vintage-border p-6 shadow-2xl relative">
+            <h3 class="font-serif text-xl font-bold text-scsb-gold tracking-widest mb-4 border-b border-scsb-border pb-2">แก้ไขบัญชีแยกประเภท</h3>
+            <form onsubmit="handleEditAccount(event)" class="space-y-3">
+                <input type="hidden" id="editAccId">
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">หมายเลขบัญชี</label>
+                    <input type="text" id="editAccNumber" disabled class="w-full bg-scsb-dark/50 border border-scsb-border text-scsb-silver px-3 py-2 text-xs font-mono">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">ชื่อผู้สมัคร</label>
+                    <input type="text" id="editAccName" required class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-3 py-2 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">ยอดเงินคงเหลือ (¥)</label>
+                    <input type="number" id="editAccBalance" required class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-3 py-2 text-xs font-mono">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-scsb-gold mb-1">รหัสลับ</label>
+                    <input type="text" id="editAccSecret" required class="w-full bg-scsb-dark border border-scsb-border text-scsb-cream px-3 py-2 text-xs font-mono">
+                </div>
+                <div class="flex space-x-4 pt-4">
+                    <button type="button" onclick="closeEditAccountModal()" class="w-1/2 border border-scsb-border text-scsb-silver py-2 text-xs tracking-widest">ยกเลิก</button>
+                    <button type="submit" class="w-1/2 bg-scsb-gold text-black font-bold py-2 text-xs tracking-widest uppercase">บันทึกการเปลี่ยนแปลง</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification / Toast Modal (Vintage Dispatch Box) -->
+    <div id="vintageModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+        <div class="max-w-md w-full bg-scsb-panel vintage-border p-6 shadow-2xl text-center space-y-4">
+            <div id="modalIconBox" class="w-16 h-16 mx-auto rounded-full border border-scsb-gold flex items-center justify-center bg-scsb-dark">
+                <i id="modalIcon" class="fa-solid fa-triangle-exclamation text-scsb-gold text-2xl"></i>
+            </div>
+            <h3 id="modalTitle" class="font-serif text-2xl font-bold text-scsb-gold tracking-wider">ประกาศ</h3>
+            <p id="modalMessage" class="text-sm text-scsb-cream tracking-wide">รายละเอียดข้อความ...</p>
+            <button onclick="closeVintageModal()" class="w-full bg-scsb-gold text-black font-bold py-2.5 text-xs tracking-widest uppercase">รับทราบ</button>
+        </div>
+    </div>
+
+    <!-- Tier Upgrade Celebration Modal -->
+    <div id="tierModal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden">
+        <div class="max-w-md w-full bg-scsb-panel vintage-border p-8 shadow-2xl text-center space-y-4 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-scsb-gold/10 rounded-full blur-xl pointer-events-none"></div>
+            <div class="w-20 h-20 mx-auto rounded-full border-2 border-scsb-gold flex items-center justify-center bg-scsb-dark animate-bounce">
+                <i class="fa-solid fa-award text-scsb-gold text-3xl"></i>
+            </div>
+            <span class="text-xs text-scsb-gold font-mono tracking-[0.3em]">恭喜 • ยินดีด้วย</span>
+            <h3 id="tierModalTitle" class="font-serif text-2xl font-bold text-scsb-cream tracking-wider">ได้รับสถานะใหม่</h3>
+            <p id="tierModalDesc" class="text-sm text-scsb-silver">ระดับสถานะบัญชีสถาบันของคุณได้รับการเลื่อนขั้นแล้ว</p>
+            <div id="tierModalBadge" class="inline-block px-4 py-1 text-xs font-mono font-bold tracking-widest border border-scsb-gold uppercase">บัตรทอง</div>
+            <div class="pt-4">
+                <button onclick="closeTierModal()" class="w-full bg-scsb-gold text-black font-bold py-3 text-xs tracking-widest uppercase">ยอมรับสถานะ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic Script -->
+    <script>
+        // Data State Management
+        let appData = {
+            accounts: [
+                { id: "acc-1", accountNumber: "SCSB-004821", name: "โจวหมิง (Zhou Ming)", balance: 58420, secret: "secret123", createdAt: "1930-09-01", isDeposit: false, tier: "GOLD", transactions: [
+                    { id: "TX-9012", type: "เงินฝาก", amount: 5000, note: "เงินปันผลกลุ่มซินดิเคทเริ่มต้น", timestamp: "11 ก.ย. 1930 14:00" },
+                    { id: "TX-9013", type: "โอนเงิน", amount: -2000, note: "ค่าจ้างคนงานท่าเรือ", timestamp: "12 ก.ย. 1930 09:30" }
+                ]},
+                { id: "acc-2", accountNumber: "SCSB-007321", name: "ตัวแทนตู้อยวี่เซิง", balance: 125000, secret: "secret123", createdAt: "1930-08-15", isDeposit: false, tier: "DIAMOND", transactions: [
+                    { id: "TX-9014", type: "เงินฝาก", amount: 50000, note: "สินค้าสัมภาระสัมปทานฝรั่งเศส", timestamp: "10 ก.ย. 1930 18:20" }
+                ]},
+                { id: "acc-3", accountNumber: "SCSB-001092", name: "หวงจินหรง", balance: 8500, secret: "secret123", createdAt: "1930-09-05", isDeposit: false, tier: "SILVER", transactions: [
+                    { id: "TX-9015", type: "เงินฝาก", amount: 8500, note: "รายได้จากโรงน้ำชา", timestamp: "05 ก.ย. 1930 11:00" }
+                ]},
+                { id: "acc-4", accountNumber: "SCSB-D-00421", name: "กลุ่มผ้าไหมเซี่ยงไฮ้", balance: 100000, secret: "secret123", createdAt: "1930-08-01", isDeposit: true, depositTerm: 7, interestRate: 0.02, maturityDate: "1930-09-18", status: "ล็อกอยู่", tier: "GOLD", transactions: [
+                    { id: "TX-D-01", type: "เงินฝาก", amount: 100000, note: "เงินต้นห้องนิรภัยล็อก (7 วัน)", timestamp: "01 ก.ย. 1930 10:00" }
+                ]}
+            ],
+            auditLogs: [
+                { timestamp: "1930-09-11 20:31", action: "แก้ไขยอดเงิน", accountNumber: "SCSB-004821", before: "50,000", after: "58,420", desc: "ผู้มีอำนาจปรับปรุงยอดเงินด้วยตนเอง" },
+                { timestamp: "1930-09-10 12:15", action: "สร้างบัญชี", accountNumber: "SCSB-007321", before: "0", after: "125,000", desc: "ออกบัญชีระดับเพชรใหม่" }
+            ],
+            notifications: [
+                { id: 1, recipient: "SCSB-004821", title: "เลื่อนขั้นระดับ", message: "ยินดีด้วย! คุณได้รับการเลื่อนขั้นเป็นบัตรทอง (GOLD)", time: "11 ก.ย. 1930", read: false }
+            ]
+        };
+
+        let currentFilter = "ALL";
+        let loggedInAccount = null;
+        let loggedInDepositAccount = null;
+        let transferTargetData = null;
+        let soundEnabled = true;
+
+        // Sound Synthesis Helper
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                if (type === 'click') {
+                    osc.frequency.setValueAtTime(440, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.08);
+                } else if (type === 'stamp') {
+                    osc.frequency.setValueAtTime(120, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.2);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(150, ctx.currentTime);
+                    osc.frequency.setValueAtTime(100, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                }
+            } catch (e) {
+                // AudioContext blocked or unsupported
+            }
+        }
+
+        function toggleAudio() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('audioMuteBtn');
+            const icon = document.getElementById('audioIcon');
+            if (soundEnabled) {
+                icon.className = "fa-solid fa-volume-high";
+                btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> <span class="hidden md:inline">เสียง: เปิด</span>';
+            } else {
+                icon.className = "fa-solid fa-volume-xmark";
+                btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> <span class="hidden md:inline">เสียง: ปิด</span>';
+            }
+            playSound('click');
+        }
+
+        // Navigation & Transition Handler
+        function navigateTo(screenId) {
+            playSound('click');
+            const transition = document.getElementById('pageTransition');
+            transition.classList.remove('opacity-0', 'pointer-events-none');
+            transition.classList.add('opacity-100');
+
+            setTimeout(() => {
+                // Hide all screens
+                const screens = ['screen-intro', 'screen-home', 'screen-auth-login', 'screen-auth-dashboard', 'screen-member-directory', 'screen-account-login', 'screen-account-book', 'screen-deposit-login', 'screen-deposit-book'];
+                screens.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.add('hidden');
+                });
+
+                // Show navbar if not intro
+                const navbar = document.getElementById('navbar');
+                if (screenId === 'intro') {
+                    navbar.classList.add('hidden');
+                } else {
+                    navbar.classList.remove('hidden');
+                }
+
+                // Show target screen
+                const target = document.getElementById('screen-' + screenId);
+                if (target) {
+                    target.classList.remove('hidden');
+                    // Initialize screen-specific data
+                    if (screenId === 'auth-dashboard') renderAuthLedger();
+                    if (screenId === 'member-directory') renderPublicDirectory();
+                    if (screenId === 'account-book' && loggedInAccount) renderAccountBook();
+                    if (screenId === 'deposit-book' && loggedInDepositAccount) renderDepositBook();
+                }
+
+                transition.classList.remove('opacity-100');
+                transition.classList.add('opacity-0', 'pointer-events-none');
+            }, 400);
+        }
+
+        function triggerIntroExit() {
+            playSound('click');
+            navigateTo('home');
+        }
+
+        // Tier Calculation
+        function calculateTier(balance, isDeposit) {
+            if (isDeposit) {
+                if (balance >= 1000000) return 'DIAMOND';
+                if (balance >= 100000) return 'GOLD';
+                if (balance >= 50000) return 'SILVER';
+                return 'COPPER';
+            } else {
+                if (balance >= 100000) return 'DIAMOND';
+                if (balance >= 50000) return 'GOLD';
+                if (balance >= 10000) return 'SILVER';
+                return 'UNRANKED';
+            }
+        }
+
+        function getTierBadgeLabel(tier, isDeposit) {
+            if (isDeposit) {
+                switch(tier) {
+                    case 'DIAMOND': return 'บัตรเพชร';
+                    case 'GOLD': return 'บัตรทอง';
+                    case 'SILVER': return 'บัตรเงิน';
+                    default: return 'บัตรทองแดง';
+                }
+            } else {
+                switch(tier) {
+                    case 'DIAMOND': return 'บัตรเพชร';
+                    case 'GOLD': return 'บัตรทอง';
+                    case 'SILVER': return 'บัตรเงิน';
+                    default: return 'ทั่วไป';
+                }
+            }
+        }
+
+        function getTierBadgeClass(tier, isDeposit) {
+            if (isDeposit) {
+                switch(tier) {
+                    case 'DIAMOND': return 'tier-diamond';
+                    case 'GOLD': return 'tier-gold';
+                    case 'SILVER': return 'tier-silver';
+                    default: return 'tier-copper';
+                }
+            } else {
+                switch(tier) {
+                    case 'DIAMOND': return 'tier-diamond';
+                    case 'GOLD': return 'tier-gold';
+                    case 'SILVER': return 'tier-silver';
+                    default: return 'tier-unranked';
+                }
+            }
+        }
+
+        // Authority Authentication
+        function handleAuthLogin(e) {
+            e.preventDefault();
+            const secret = document.getElementById('authSecretInput').value;
+            const expectedSecret = typeof AUTHORITY_SECRET !== 'undefined' ? AUTHORITY_SECRET : "mjmingzhou2025";
+            
+            if (secret === expectedSecret) {
+                playSound('stamp');
+                navigateTo('auth-dashboard');
+                document.getElementById('authSecretInput').value = "";
+            } else {
+                playSound('error');
+                showVintageModal("ปฏิเสธการเข้าถึง", "ป้อนรหัสผ่านความปลอดภัยของผู้มีอำนาจไม่ถูกต้อง ถูกปฏิเสธการเข้าสู่ห้อง", "fa-triangle-exclamation");
+            }
+        }
+
+        // Authority Ledger Rendering
+        function setFilter(filter) {
+            currentFilter = filter;
+            ['ALL', 'SILVER', 'GOLD', 'DIAMOND', 'UNRANKED', 'DEPOSIT'].forEach(f => {
+                const btn = document.getElementById('filter-' + f);
+                if (btn) {
+                    if (f === filter) {
+                        btn.className = "px-3 py-1 bg-scsb-gold text-black font-bold transition";
+                    } else {
+                        btn.className = "px-3 py-1 bg-scsb-dark border border-scsb-border text-scsb-silver hover:text-scsb-cream transition";
+                    }
+                }
+            });
+            renderAuthLedger();
+        }
+
+        function renderAuthLedger() {
+            const query = document.getElementById('authSearchInput').value.toLowerCase();
+            const tbody = document.getElementById('authAccountsTableBody');
+            tbody.innerHTML = "";
+
+            let totalLiq = 0;
+            let totalDepVal = 0;
+            let depCount = 0;
+            let cardCount = 0;
+            let txCount = 0;
+
+            const filtered = appData.accounts.filter(acc => {
+                const matchQuery = acc.accountNumber.toLowerCase().includes(query) || acc.name.toLowerCase().includes(query);
+                if (!matchQuery) return false;
+                if (currentFilter === 'ALL') return true;
+                if (currentFilter === 'DEPOSIT') return acc.isDeposit;
+                return acc.tier === currentFilter && !acc.isDeposit;
+            });
+
+            document.getElementById('authAccountCount').innerText = `แสดง ${filtered.length} บัญชี`;
+
+            appData.accounts.forEach(acc => {
+                if (acc.isDeposit) {
+                    totalDepVal += acc.balance;
+                    depCount++;
+                } else {
+                    totalLiq += acc.balance;
+                    if (acc.tier !== 'UNRANKED') cardCount++;
+                }
+                txCount += (acc.transactions ? acc.transactions.length : 0);
+            });
+
+            document.getElementById('statTotalAcc').innerText = appData.accounts.length;
+            document.getElementById('statTotalLiq').innerText = '¥ ' + totalLiq.toLocaleString();
+            document.getElementById('statTotalDep').innerText = depCount;
+            document.getElementById('statTotalDepVal').innerText = '¥ ' + totalDepVal.toLocaleString();
+            document.getElementById('statTotalCards').innerText = cardCount;
+            document.getElementById('statTotalTx').innerText = txCount;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-scsb-silver italic">ไม่พบบัญชีที่ตรงกับเงื่อนไขการค้นหา</td></tr>`;
+                return;
+            }
+
+            filtered.forEach(acc => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-scsb-dark/40 transition";
+                const tierClass = getTierBadgeClass(acc.tier, acc.isDeposit);
+                const tierLabel = getTierBadgeLabel(acc.tier, acc.isDeposit);
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold text-scsb-gold">${acc.accountNumber}</td>
+                    <td class="p-3 text-scsb-cream">${acc.name} ${acc.isDeposit ? '<span class="text-[10px] bg-scsb-red text-white px-1.5 py-0.5 ml-1">เงินฝาก</span>' : ''}</td>
+                    <td class="p-3 font-mono text-scsb-gold">¥ ${acc.balance.toLocaleString()}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 text-[10px] font-mono font-bold ${tierClass}">${tierLabel}</span></td>
+                    <td class="p-3 font-mono text-scsb-silver">••••••••</td>
+                    <td class="p-3 font-mono text-scsb-silver">${acc.createdAt}</td>
+                    <td class="p-3 text-right space-x-2">
+                        <button onclick="openEditAccountModal('${acc.id}')" class="text-scsb-gold hover:text-scsb-gold-light p-1" title="แก้ไขบัญชี"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deleteAccount('${acc.id}')" class="text-scsb-red-bright hover:text-red-400 p-1" title="ลบบัญชี"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Render Audit Logs
+            const auditContainer = document.getElementById('auditLogContainer');
+            auditContainer.innerHTML = "";
+            appData.auditLogs.slice().reverse().forEach(log => {
+                const div = document.createElement('div');
+                div.className = "border-b border-scsb-border/30 pb-1 text-scsb-cream-dark flex justify-between";
+                div.innerHTML = `
+                    <div><span class="text-scsb-gold">${log.timestamp}</span> — <span class="text-scsb-cream">${log.accountNumber}</span> — <span class="text-scsb-silver">${log.action}</span> (${log.desc})</div>
+                    <div class="font-mono text-scsb-gold">${log.before} → ${log.after}</div>
+                `;
+                auditContainer.appendChild(div);
+            });
+        }
+
+        // Create Account
+        document.getElementById('newAccIsDeposit').addEventListener('change', function(e) {
+            const box = document.getElementById('depositDurationBox');
+            if (e.target.checked) box.classList.remove('hidden');
+            else box.classList.add('hidden');
+        });
+
+        function openCreateAccountModal() {
+            playSound('click');
+            document.getElementById('createAccountModal').classList.remove('hidden');
+        }
+        function closeCreateAccountModal() {
+            playSound('click');
+            document.getElementById('createAccountModal').classList.add('hidden');
+        }
+
+        function handleCreateAccount(e) {
+            e.preventDefault();
+            const name = document.getElementById('newAccName').value;
+            const balance = parseInt(document.getElementById('newAccBalance').value);
+            const secret = document.getElementById('newAccSecret').value;
+            const isDeposit = document.getElementById('newAccIsDeposit').checked;
+            
+            const randomId = Math.floor(100000 + Math.random() * 900000);
+            const accountNumber = isDeposit ? `SCSB-D-${randomId.toString().substring(0,5)}` : `SCSB-${randomId}`;
+            const tier = calculateTier(balance, isDeposit);
+
+            const newAcc = {
+                id: 'acc-' + Date.now(),
+                accountNumber: accountNumber,
+                name: name,
+                balance: balance,
+                secret: secret,
+                createdAt: new Date().toISOString().split('T')[0],
+                isDeposit: isDeposit,
+                tier: tier,
+                transactions: [
+                    { id: 'TX-' + Math.floor(Math.random()*10000), type: 'เงินฝาก', amount: balance, note: isDeposit ? 'เงินต้นห้องนิรภัยล็อก' : 'เงินฝากเริ่มต้นบัญชี', timestamp: new Date().toLocaleString() }
+                ]
+            };
+
+            if (isDeposit) {
+                const termDays = parseInt(document.getElementById('newAccDepositTerm').value);
+                newAcc.depositTerm = termDays;
+                newAcc.interestRate = termDays === 7 ? 0.02 : (termDays === 30 ? 0.10 : 0.22);
+                const maturityDate = new Date();
+                maturityDate.setDate(maturityDate.getDate() + termDays);
+                newAcc.maturityDate = maturityDate.toISOString().split('T')[0];
+                newAcc.status = 'ล็อกอยู่';
+            }
+
+            appData.accounts.push(newAcc);
+            appData.auditLogs.push({
+                timestamp: new Date().toLocaleString(),
+                action: "สร้างบัญชีใหม่",
+                accountNumber: accountNumber,
+                before: "0",
+                after: "¥ " + balance.toLocaleString(),
+                desc: `ออกบัญชี ${isDeposit ? 'เงินฝาก' : 'ทั่วไป'} ใหม่สำหรับ ${name}`
+            });
+
+            closeCreateAccountModal();
+            playSound('stamp');
+            renderAuthLedger();
+            showVintageModal("ออกบัญชีสำเร็จ", `บัญชีหมายเลข ${accountNumber} ถูกสร้างและเพิ่มลงในสมุดบัญชีของ SCSB เรียบร้อยแล้ว`, "fa-circle-check");
+        }
+
+        // Delete Account
+        function deleteAccount(id) {
+            const acc = appData.accounts.find(a => a.id === id);
+            if (!acc) return;
+
+            if (confirm(`ลบบัญชีนี้ (${acc.accountNumber})?\nการกระทำนี้จะลบบัญชีออกจากระบบสมุดบัญชีของ SCSB อย่างถาวร`)) {
+                appData.accounts = appData.accounts.filter(a => a.id !== id);
+                appData.auditLogs.push({
+                    timestamp: new Date().toLocaleString(),
+                    action: "ลบบัญชี",
+                    accountNumber: acc.accountNumber,
+                    before: "¥ " + acc.balance.toLocaleString(),
+                    after: "ถูกลบ",
+                    desc: `ลบบัญชี ${acc.accountNumber} ถาวร`
+                });
+                playSound('stamp');
+                renderAuthLedger();
+                showVintageModal("ลบบัญชีเรียบร้อย", `บัญชี ${acc.accountNumber} ถูกลบออกจากสมุดบัญชีแล้ว`, "fa-trash-can");
+            }
+        }
+
+        // Edit Account
+        function openEditAccountModal(id) {
+            const acc = appData.accounts.find(a => a.id === id);
+            if (!acc) return;
+            document.getElementById('editAccId').value = acc.id;
+            document.getElementById('editAccNumber').value = acc.accountNumber;
+            document.getElementById('editAccName').value = acc.name;
+            document.getElementById('editAccBalance').value = acc.balance;
+            document.getElementById('editAccSecret').value = acc.secret;
+            document.getElementById('editAccountModal').classList.remove('hidden');
+            playSound('click');
+        }
+        function closeEditAccountModal() {
+            document.getElementById('editAccountModal').classList.add('hidden');
+            playSound('click');
+        }
+
+        function handleEditAccount(e) {
+            e.preventDefault();
+            const id = document.getElementById('editAccId').value;
+            const name = document.getElementById('editAccName').value;
+            const newBalance = parseInt(document.getElementById('editAccBalance').value);
+            const secret = document.getElementById('editAccSecret').value;
+
+            const acc = appData.accounts.find(a => a.id === id);
+            if (acc) {
+                const oldBal = acc.balance;
+                acc.name = name;
+                acc.balance = newBalance;
+                acc.secret = secret;
+                const oldTier = acc.tier;
+                acc.tier = calculateTier(newBalance, acc.isDeposit);
+
+                appData.auditLogs.push({
+                    timestamp: new Date().toLocaleString(),
+                    action: "แก้ไขยอดเงิน",
+                    accountNumber: acc.accountNumber,
+                    before: "¥ " + oldBal.toLocaleString(),
+                    after: "¥ " + newBalance.toLocaleString(),
+                    desc: `แก้ไขโดยผู้มีอำนาจ ระดับ: ${oldTier} → ${acc.tier}`
+                });
+
+                if (oldTier !== acc.tier) {
+                    appData.notifications.push({
+                        id: Date.now(),
+                        recipient: acc.accountNumber,
+                        title: "อัปเดตระดับสถานะ",
+                        message: `สถานะบัญชีของคุณเปลี่ยนจาก ${oldTier} เป็น ${getTierBadgeLabel(acc.tier, acc.isDeposit)}`,
+                        time: new Date().toLocaleDateString(),
+                        read: false
+                    });
+                }
+            }
+
+            closeEditAccountModal();
+            playSound('stamp');
+            renderAuthLedger();
+            showVintageModal("อัปเดตสมุดบัญชีแล้ว", "พารามิเตอร์บัญชีและยอดเงินได้รับการแก้ไขเรียบร้อย", "fa-circle-check");
+        }
+
+        // Public Member Directory
+        function renderPublicDirectory() {
+            const query = document.getElementById('publicSearchInput').value.toUpperCase();
+            const grid = document.getElementById('publicDirectoryGrid');
+            grid.innerHTML = "";
+
+            const filtered = appData.accounts.filter(acc => !acc.isDeposit && acc.accountNumber.toUpperCase().includes(query));
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center text-scsb-silver py-12 italic">ไม่พบบัญชีสาธารณะที่ตรงกับการค้นหา</div>`;
+                return;
+            }
+
+            filtered.forEach(acc => {
+                const cardClass = getTierBadgeClass(acc.tier, false);
+                const tierLabel = getTierBadgeLabel(acc.tier, false);
+                const div = document.createElement('div');
+                div.className = "vintage-border bg-scsb-panel p-6 shadow-xl flex flex-col justify-between relative overflow-hidden group hover:border-scsb-gold transition";
+                div.innerHTML = `
+                    <div class="absolute right-[-10px] bottom-[-10px] opacity-5 text-7xl font-serif">¥</div>
+                    <div>
+                        <span class="text-[10px] px-2 py-0.5 font-mono font-bold tracking-widest uppercase ${cardClass}">${tierLabel}</span>
+                        <h3 class="font-serif text-xl font-bold text-scsb-cream mt-3 tracking-widest">${acc.accountNumber}</h3>
+                    </div>
+                    <div class="mt-6">
+                        <span class="text-[10px] text-scsb-silver tracking-widest block">สภาพคล่องที่มีอยู่</span>
+                        <h2 class="font-serif text-3xl font-bold text-scsb-gold mt-1">¥ ${acc.balance.toLocaleString()}</h2>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-scsb-border/50 text-[10px] text-scsb-silver flex justify-between">
+                        <span>เซี่ยงไฮ้</span>
+                        <span class="font-mono">${acc.createdAt}</span>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        // Account Book Login
+        function handleAccountLogin(e) {
+            e.preventDefault();
+            const accNum = document.getElementById('loginAccNumber').value.trim().toUpperCase();
+            const secret = document.getElementById('loginAccSecret').value;
+
+            const acc = appData.accounts.find(a => a.accountNumber === accNum && a.secret === secret && !a.isDeposit);
+
+            if (acc) {
+                loggedInAccount = acc;
+                playSound('stamp');
+                navigateTo('account-book');
+                document.getElementById('loginAccNumber').value = "";
+                document.getElementById('loginAccSecret').value = "";
+            } else {
+                playSound('error');
+                showVintageModal("ไม่พบบัญชี", "การยืนยันตัวตนล้มเหลว ตรวจสอบหมายเลขบัญชีและรหัสผ่านลับอีกครั้ง", "fa-triangle-exclamation");
+            }
+        }
+
+        function renderAccountBook() {
+            if (!loggedInAccount) return;
+            document.getElementById('abTitleName').innerText = `สมุดบัญชีของ ${loggedInAccount.name}`;
+            document.getElementById('abAccountNumber').innerText = loggedInAccount.accountNumber;
+            document.getElementById('abBalanceDisplay').innerText = `¥ ${loggedInAccount.balance.toLocaleString()}`;
+            
+            const badge = document.getElementById('abCardTierBadge');
+            const tierLabel = getTierBadgeLabel(loggedInAccount.tier, false);
+            badge.innerText = tierLabel;
+            badge.className = `text-[10px] px-2 py-0.5 font-mono font-bold tracking-widest uppercase ${getTierBadgeClass(loggedInAccount.tier, false)}`;
+
+            const tbody = document.getElementById('abTransactionsTableBody');
+            tbody.innerHTML = "";
+            const txs = loggedInAccount.transactions || [];
+            document.getElementById('abTxCount').innerText = `${txs.length} รายการ`;
+
+            if (txs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-scsb-silver italic">ยังไม่มีประวัติธุรกรรม</td></tr>`;
+                return;
+            }
+
+            txs.slice().reverse().forEach(tx => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-scsb-dark/40 transition";
+                const isPositive = tx.amount > 0;
+                tr.innerHTML = `
+                    <td class="p-3 font-mono text-scsb-silver">${tx.timestamp}</td>
+                    <td class="p-3 font-mono text-scsb-cream">${tx.type}</td>
+                    <td class="p-3 font-mono font-bold ${isPositive ? 'text-emerald-400' : 'text-rose-400'}">${isPositive ? '+' : ''}¥ ${tx.amount.toLocaleString()}</td>
+                    <td class="p-3 text-scsb-cream-dark">${tx.note}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Transfer Input Modal & Confirmation Flow
+        function openTransferModal() {
+            playSound('click');
+            document.getElementById('inputTransferRecipient').value = "";
+            document.getElementById('inputTransferAmount').value = "";
+            document.getElementById('inputTransferNote').value = "";
+            document.getElementById('transferInputModal').classList.remove('hidden');
+        }
+
+        function closeTransferInputModal() {
+            playSound('click');
+            document.getElementById('transferInputModal').classList.add('hidden');
+        }
+
+        function submitTransferInput(e) {
+            e.preventDefault();
+            const recipient = document.getElementById('inputTransferRecipient').value.trim().toUpperCase();
+            const amount = parseInt(document.getElementById('inputTransferAmount').value);
+            const note = document.getElementById('inputTransferNote').value.trim() || "โอนเงินภายในชุมชน";
+
+            const targetAcc = appData.accounts.find(a => a.accountNumber === recipient && !a.isDeposit);
+            if (!targetAcc) {
+                playSound('error');
+                showVintageModal("บัญชีไม่ถูกต้อง", "ไม่พบหมายเลขบัญชีผู้รับในทะเบียนสมุดบัญชีของ SCSB", "fa-triangle-exclamation");
+                return;
+            }
+            if (targetAcc.accountNumber === loggedInAccount.accountNumber) {
+                playSound('error');
+                showVintageModal("การโอนไม่ถูกต้อง", "คุณไม่สามารถโอนเงินไปยังบัญชีของตนเองได้", "fa-triangle-exclamation");
+                return;
+            }
+            if (isNaN(amount) || amount <= 0) {
+                playSound('error');
+                showVintageModal("จำนวนเงินไม่ถูกต้อง", "โปรดป้อนจำนวนเงินตัวเลขที่เป็นบวก", "fa-triangle-exclamation");
+                return;
+            }
+            if (amount > loggedInAccount.balance) {
+                playSound('error');
+                showVintageModal("ยอดเงินไม่พอ", `จำนวนเงินโอนเกินยอดคงเหลือ ¥${loggedInAccount.balance.toLocaleString()} ที่มีอยู่`, "fa-triangle-exclamation");
+                return;
+            }
+
+            transferTargetData = { targetAcc, amount, note };
+
+            document.getElementById('modalFromAcc').innerText = loggedInAccount.accountNumber;
+            document.getElementById('modalToAcc').innerText = targetAcc.accountNumber;
+            document.getElementById('modalAmount').innerText = `¥ ${amount.toLocaleString()}`;
+            document.getElementById('modalNote').innerText = note;
+
+            closeTransferInputModal();
+            document.getElementById('transferModal').classList.remove('hidden');
+            playSound('click');
+        }
+
+        function closeTransferModal() {
+            document.getElementById('transferModal').classList.add('hidden');
+            playSound('click');
+        }
+
+        function executeTransfer() {
+            if (!transferTargetData || !loggedInAccount) return;
+            const { targetAcc, amount, note } = transferTargetData;
+
+            // Deduct from sender
+            loggedInAccount.balance -= amount;
+            const oldTierSender = loggedInAccount.tier;
+            loggedInAccount.tier = calculateTier(loggedInAccount.balance, false);
+            const txId = 'TX-' + Math.floor(1000 + Math.random() * 9000);
+            const timeStr = new Date().toLocaleString();
+
+            loggedInAccount.transactions.push({
+                id: txId,
+                type: 'โอนเงิน',
+                amount: -amount,
+                note: `โอนไปที่ ${targetAcc.accountNumber} (${note})`,
+                timestamp: timeStr
+            });
+
+            // Add to recipient
+            targetAcc.balance += amount;
+            const oldTierRecipient = targetAcc.tier;
+            targetAcc.tier = calculateTier(targetAcc.balance, targetAcc.isDeposit);
+            targetAcc.transactions.push({
+                id: txId,
+                type: 'โอนเงิน',
+                amount: amount,
+                note: `รับจาก ${loggedInAccount.accountNumber} (${note})`,
+                timestamp: timeStr
+            });
+
+            // Audit log
+            appData.auditLogs.push({
+                timestamp: timeStr,
+                action: "โอนเงิน",
+                accountNumber: loggedInAccount.accountNumber,
+                before: "¥ " + (loggedInAccount.balance + amount).toLocaleString(),
+                after: "¥ " + loggedInAccount.balance.toLocaleString(),
+                desc: `โอนเงิน ¥${amount.toLocaleString()} ไปยัง ${targetAcc.accountNumber} (${note})`
+            });
+
+            closeTransferModal();
+            playSound('stamp');
+
+            // Show Receipt Slip
+            document.getElementById('slipTxId').innerText = txId;
+            document.getElementById('slipDate').innerText = timeStr;
+            document.getElementById('slipFrom').innerText = loggedInAccount.accountNumber;
+            document.getElementById('slipTo').innerText = targetAcc.accountNumber;
+            document.getElementById('slipAmount').innerText = `¥ ${amount.toLocaleString()}`;
+            document.getElementById('slipNote').innerText = note;
+            document.getElementById('receiptModal').classList.remove('hidden');
+
+            renderAccountBook();
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receiptModal').classList.add('hidden');
+            playSound('click');
+        }
+
+        function saveSlip() {
+            playSound('click');
+            showVintageModal("บันทึกใบเสร็จแล้ว", "บันทึกใบเสร็จการโอนลงในบันทึกโทรเลขท้องถิ่นเรียบร้อย", "fa-circle-check");
+            closeReceiptModal();
+        }
+
+        // Deposit Book Authentication & Rendering
+        function handleDepositLogin(e) {
+            e.preventDefault();
+            const accNum = document.getElementById('depositLoginAccNumber').value.trim().toUpperCase();
+            const secret = document.getElementById('depositLoginAccSecret').value;
+
+            const acc = appData.accounts.find(a => a.accountNumber === accNum && a.secret === secret && a.isDeposit);
+
+            if (acc) {
+                loggedInDepositAccount = acc;
+                playSound('stamp');
+                navigateTo('deposit-book');
+                document.getElementById('depositLoginAccNumber').value = "";
+                document.getElementById('depositLoginAccSecret').value = "";
+            } else {
+                playSound('error');
+                showVintageModal("ปฏิเสธการเข้าห้องนิรภัย", "ข้อมูลรับรองห้องนิรภัยเงินฝากไม่ถูกต้อง หรือบัญชีนี้ไม่ใช่บัญชีเงินฝาก", "fa-triangle-exclamation");
+            }
+        }
+
+        function renderDepositBook() {
+            if (!loggedInDepositAccount) return;
+            document.getElementById('depAccountNumber').innerText = loggedInDepositAccount.accountNumber;
+            document.getElementById('depBalanceDisplay').innerText = `¥ ${loggedInDepositAccount.balance.toLocaleString()}`;
+            document.getElementById('depStartDate').innerText = loggedInDepositAccount.createdAt;
+            document.getElementById('depDuration').innerText = loggedInDepositAccount.depositTerm + " วัน";
+            document.getElementById('depInterestRate').innerText = (loggedInDepositAccount.interestRate * 100) + "%";
+            document.getElementById('depMaturityDate').innerText = loggedInDepositAccount.maturityDate;
+            document.getElementById('depStatusDisplay').innerText = loggedInDepositAccount.status;
+
+            const badge = document.getElementById('depCardTierBadge');
+            const tierLabel = getTierBadgeLabel(loggedInDepositAccount.tier, true);
+            badge.innerText = tierLabel;
+            badge.className = `text-[10px] px-2 py-0.5 font-mono font-bold tracking-widest uppercase ${getTierBadgeClass(loggedInDepositAccount.tier, true)}`;
+
+            // Calculate countdown
+            const maturity = new Date(loggedInDepositAccount.maturityDate).getTime();
+            const now = new Date().getTime();
+            const diff = maturity - now;
+
+            const countdownEl = document.getElementById('depCountdownDisplay');
+            if (diff <= 0) {
+                countdownEl.innerText = "ครบกำหนด • เครดิตดอกเบี้ยแล้ว";
+                loggedInDepositAccount.status = "ครบกำหนด";
+            } else {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                countdownEl.innerText = `${days} วัน ${hours} ชั่วโมง ${mins} นาที`;
+            }
+        }
+
+        // Notifications Center
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notifDropdown');
+            dropdown.classList.toggle('hidden');
+            renderNotifications();
+            playSound('click');
+        }
+
+        function renderNotifications() {
+            const list = document.getElementById('notifList');
+            list.innerHTML = "";
+            const notifs = appData.notifications;
+
+            if (notifs.length === 0) {
+                list.innerHTML = `<div class="text-xs text-scsb-silver text-center py-4 italic">ไม่มีโทรเลขแจ้งเตือน</div>`;
+                document.getElementById('notifBadge').classList.add('hidden');
+                return;
+            }
+
+            document.getElementById('notifBadge').classList.remove('hidden');
+            document.getElementById('notifBadge').innerText = notifs.filter(n => !n.read).length;
+
+            notifs.forEach((n, idx) => {
+                const div = document.createElement('div');
+                div.className = "bg-scsb-dark p-3 border border-scsb-border text-xs space-y-1";
+                div.innerHTML = `
+                    <div class="flex justify-between text-[10px] text-scsb-gold font-mono"><span>${n.title}</span> <span>${n.time}</span></div>
+                    <p class="text-scsb-cream">${n.message}</p>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function clearNotifications() {
+            appData.notifications = [];
+            renderNotifications();
+            playSound('click');
+        }
+
+        // Vintage Modal Helper
+        function showVintageModal(title, message, iconClass) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMessage').innerText = message;
+            document.getElementById('modalIcon').className = "fa-solid " + iconClass + " text-scsb-gold text-2xl";
+            document.getElementById('vintageModal').classList.remove('hidden');
+            playSound('click');
+        }
+        function closeVintageModal() {
+            document.getElementById('vintageModal').classList.add('hidden');
+            playSound('click');
+        }
+
+        function closeTierModal() {
+            document.getElementById('tierModal').classList.add('hidden');
+            playSound('click');
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            renderAuthLedger();
+        };
+    </script>
+</body>
+</html>
